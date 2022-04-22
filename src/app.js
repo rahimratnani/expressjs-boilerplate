@@ -2,9 +2,11 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import indexRouter from './routes/index.js';
+import errorHandler from './middlewares/error-middleware.js';
 import helmet from 'helmet';
 import compression from 'compression';
+
+import indexRouter from './routes/index.js';
 
 const app = express();
 
@@ -20,4 +22,12 @@ app.use(compression()); // Compress all routes
 // Routes
 app.use('/', indexRouter);
 
+// Handle 404
+app.use((req, res, next) => {
+  res.status(404);
+  throw new Error('Not found');
+});
+
+// Error handler
+app.use(errorHandler);
 export default app;
