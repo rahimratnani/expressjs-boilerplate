@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(compression()); // Compress all routes
 
-// Routes
+// Routes.
 app.use('/', indexRouter);
 
 // Handle 404
